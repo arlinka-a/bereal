@@ -1,7 +1,9 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
-// Replace the following with your Atlas connection string
-const dbURI = "your_mongodb_atlas_connection_string_here";
-mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('Database connected!'))
-  .catch(err => console.error('Connection error', err));
+mongoose.connect('mongodb+srv://arlinka:p8o60mxjJVp0U65d@cluster0.xsek6pl.mongodb.net/hackaton');
+
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection failed'));
+db.once('open', () => {
+    console.log('connection open!')
+})
