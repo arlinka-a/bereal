@@ -4,8 +4,9 @@ import { Link } from "react-router-dom";
 function HomePage() {
   return (
     <div>
-      <h1>Home Page</h1>
-      <Link to="/login">Login/Signup</Link>
+      <Link to="/upload-file">אזור אישי</Link>
+      <Link to="/login">Login</Link>
+      <Link to="/signup">Signup</Link>
     </div>
   );
 }

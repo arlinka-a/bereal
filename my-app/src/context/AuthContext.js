@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
 import  fetchData  from '../utils/fetchToken';
+import axios from 'axios';
 
 
 const AuthContext = createContext();
@@ -9,30 +10,29 @@ export function AuthProvider({ children }) {
 
   const login = async (username, password) => {
     try {
-      const response = await fetchData('/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }),
-      });
-      const data = await response.json();
-      if (data.token) {
-        localStorage.setItem('token', data.token);
-        setUser({ username }); // Adjust according to what you want to store
-      }
+      const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/users/login`, {username, password});
+      const data = (response.data)[0];
+      console.log(data);
+      setUser({ username }); 
     } catch (error) {
       console.error("Login failed:", error);
     }
   };
+  const signUp = async (username, password) => {
+    try {
+      const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/users/signup`, {username, password});
+      const data = await response.data;
+    } catch (error) {
+      console.error("signUp failed:", error);
+    }
+  };
 
   const logout = () => {
-    localStorage.removeItem('token');
     setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, signUp }}>
       {children}
     </AuthContext.Provider>
   );

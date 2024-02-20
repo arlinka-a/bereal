@@ -1,6 +1,6 @@
 const fetchData =  async () => {
     const token = localStorage.getItem('token');
-    const response = await fetch('/api/protected', {
+    const response = await fetch('/api', {
       headers: {
         'Authorization': `Bearer ${token}`
       }

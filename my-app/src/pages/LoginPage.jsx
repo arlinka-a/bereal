@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
-function LoginSignupPage() {
+function LoginPage() {
   const navigate = useNavigate();
   const { login, user } = useAuth();
   const [username, setUsername] = useState('');
@@ -10,6 +10,7 @@ function LoginSignupPage() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log("heyyyy");
     await login(username, password);
     navigate('/myzone'); // Redirect after login
   };
@@ -47,4 +48,4 @@ function LoginSignupPage() {
   );
 }
 
-export default LoginSignupPage;
+export default LoginPage;
